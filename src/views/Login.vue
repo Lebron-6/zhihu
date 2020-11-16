@@ -30,6 +30,7 @@ import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // useRouter 定义路由的行为
 // useRoute 获取路由信息
+import { useStore } from 'vuex'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
 
@@ -40,6 +41,7 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
+    const store = useStore()
     const emailVal = ref('')
     const router = useRouter()
     const emailRules: RulesProp = [
@@ -51,9 +53,10 @@ export default defineComponent({
       { type: 'required', message: '密码不能为空' }
     ]
     const onFormSubmit = (result: boolean) => {
-      console.log('jisoo', result)
+      // console.log('jisoo', result)
       if (result) {
-        router.push({ name: 'column', params: { id: 1 } })
+        router.push('/')
+        store.commit('login')
       }
     }
     return {
